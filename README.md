@@ -20,10 +20,10 @@ My initial hypothesis....
 
 * Explore data in search of ????????
     * Answer the following initial questions
-        1. 
-        2. 
-        3. 
-        4. 
+        1) 
+        2) 
+        3) 
+        4) 
 
 * Develop a model to predict ???????
 
