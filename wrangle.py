@@ -68,9 +68,10 @@ def prep_telco(df):
     '''Prepares acquired teclo data for exploration'''
 
     df.drop_duplicates(inplace=True)
-    df.drop(columns=['customer_id','payment_type_id', 'internet_service_type_id','contract_type_id'], inplace=True)
     df = df[df.total_charges!=' ']
     df.total_charges = df.total_charges.astype(float)
+    df['churn_encoded'] = df.churn.map({'Yes': 1, 'No': 0})
+    df.drop(columns=['customer_id','payment_type_id', 'internet_service_type_id','contract_type_id', 'churn'], inplace=True)
     
     return df
 
