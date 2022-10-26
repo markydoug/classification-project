@@ -19,6 +19,7 @@ My initial hypothesis is that drivers of churn will be predictors of if a custom
 * Prepare data
     * Remove duplicate columns (payment_type_id', 'internet_service_type_id', 'contract_type_id', 'customer_id', )
     * Drop customers whose total_charges are spaces; these customers are new customers (tenure=0 and churn=No)
+    * Encode churn as 'churn_encoded' {'Yes': 1, 'No': 0}, then drop 'churn' column
 
 * Explore data in search of drivers of churn
     * Answer the following initial questions
