@@ -64,7 +64,7 @@ def get_telco_data():
 ##################################### PREP DATA ###################################
 ###################################################################################
 
-def prep_telco(df):
+def clean_telco(df):
     '''Prepares acquired teclo data for exploration'''
 
     df.drop_duplicates(inplace=True)
@@ -83,12 +83,18 @@ def prep_telco(df):
 def train_validate_test_split(df, target):
     '''
     Takes in a data frame and the target variable column  and returns
-    train (75%), validate (15%), and test (10%) data frames.
+    train (65%), validate (20%), and test (15%) data frames.
     '''
-    train, test = train_test_split(df,test_size = 0.1, stratify = df[target], random_state=27)
-    train, validate = train_test_split(train, test_size = 0.166666666666, stratify = train[target],random_state=27)
+    train, test = train_test_split(df,test_size = 0.15, stratify = df[target], random_state=27)
+    train, validate = train_test_split(train, test_size = 0.235, stratify = train[target],random_state=27)
     
     return train, validate, test
+
+def get_dumdum(df):
+    catcol = list(train.select_dtypes(exclude=np.number).columns)
+    dummy_df = pd.get_dummies(df[catcol], dummy_na=False, drop_first=[True, True])
+    df = pd.concat([df, dummy_df], axis=1)
+    return df
 
 def prep_for_model(train, validate, test, target):
     '''
