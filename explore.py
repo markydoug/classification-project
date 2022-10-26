@@ -61,11 +61,11 @@ def explore_num_bvar(df, target):
     '''
     num_vars = list(df.select_dtypes(include=np.number).columns)
     for col in num_vars:
-    average = df[col].mean()
-    sns.boxenplot(data=df, x='churn_encoded', y=col, color='lightseagreen')
-    plt.title(col)
-    plt.axhline(average, ls='--', color='black') 
-    plt.show()
+        average = df[col].mean()
+        sns.boxenplot(data=df, x='churn_encoded', y=col, color='lightseagreen')
+        plt.title(col)
+        plt.axhline(average, ls='--', color='black') 
+        plt.show()
 
 def explore_cat_bvar(df, target):
     '''
