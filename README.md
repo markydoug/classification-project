@@ -22,13 +22,11 @@ My initial hypothesis is that drivers of churn will be predictors of if a custom
     * Encode churn as 'churn_encoded' {'Yes': 1, 'No': 0}, then drop 'churn' column
 
 * Explore data in search of drivers of churn
-    * Answer the following initial questions
-        * What percentage of customers churn?
+    * Answer the following initial question
         * Does a customer's tenure affect churn?
-        * Does the number of internet add-ons affect churn?
-        * Does being a senior citizen affect churn?
         * Do higher monthly charges affect churn?
         * Do those who have a month-to-month contract churn more?
+        * Do those with no tech support churn more?
 
 * Develop a model to predict if a customer will churn
     * Use drivers identified through exploration to build different predictive models
