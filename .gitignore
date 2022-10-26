@@ -4,6 +4,3 @@ env.py
 __pycache__
 *.csv
 *.xlsx
-
-draft.ipynb
-project_template.ipynb
