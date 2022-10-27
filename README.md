@@ -23,9 +23,10 @@ My initial hypothesis is that drivers of churn will be predictors of if a custom
 
 * Explore data in search of drivers of churn
     * Answer the following initial question
+        * How often do customers churn?
         * Does a customer's tenure affect churn?
         * Do higher monthly charges affect churn?
-        * Do those who have a month-to-month contract churn more?
+        * Does contract type affect churn? 
         * Do those with no tech support churn more?
 
 * Develop a model to predict if a customer will churn
@@ -40,13 +41,17 @@ My initial hypothesis is that drivers of churn will be predictors of if a custom
 
 | Feature | Definition |
 |:--------|:-----------|
-|feature 1| what is this telling us|
-|feature 2| what is this saying|
+|tenure| The number of months a customer has been with the company|
+|monthly_charges| The amount a customer is currently charged per month|
+|total_charges| The amount a customer has been charged since becoming a customer|
+|contract_type| The length of contract the customer currently has; Month-to-month, One-year, or Two-year|
+|**Target variable**
+|churn_encoded| Did the customer leave the company? {'Yes': 1, 'No': 0}|
 
 
 ## Steps to Reproduce
 1. Clone this repo
-2. Acquire the data from Codeup mySQL "telco" database
+2. Acquire the data from Codeup mySQL "telco" database using your personal '''env.py''' file where you store your '''username''', '''password''', and '''host'''
 3. Put the data in the file containing the cloned repo.
 4. Run notebook.
 
