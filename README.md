@@ -65,12 +65,24 @@ My initial hypothesis is that drivers of churn will be predictors of if a custom
 
 ## Steps to Reproduce
 1. Clone this repo
-2. Acquire the data from Codeup mySQL "telco" database using your personal '''env.py''' file where you store your ```username```, ```password```, and ```host```
+2. Acquire the data from Codeup mySQL "telco" database using your personal ```env.py``` file where you store your ```username```, ```password```, and ```host```
 3. Put the data in the file containing the cloned repo.
 4. Run notebook.
 
 ## Takeaways and Conclusions
-* takeaway 1
-* takeaway 2
+* About 1/4 of our customers churn
+* Tenure seems to be a driver of churn; we need to intice customers to stay around.
+* Monthly_charges seem to be a driver of churn; we need to help lower monthly charges.
+* Contract_type seems to be a driver of churn; we need to intice customers to sign longer contracts.
+* Tech_support seems to be a driver of churn; we should encourage more customers to get tech support
 
-## Recommendataions
+## Recommendations
+* To reduce churn, I would encourage the company to think about taking the following actions:
+    * Seek out young customers and give discounts (lower monthly cost) in order to keep customers longer (increase tenure)
+    * Seek out month-to-month contract customers and encourage them to sign a longer contract maybe through discounts
+    * Seek out those who don't have tech support and give a free trial of tech support.
+
+## Next Steps
+* In the next iteration:
+    * Look into how customers with internet add-ons are the same people then can see if they churn more or less.
+    * Look into cost of add-ons and see if there are bundles that might reduce monthly charges. That could help us entice more customers to stay.
