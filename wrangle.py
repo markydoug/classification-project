@@ -91,17 +91,21 @@ def train_validate_test_split(df, target):
     return train, validate, test
 
 def get_dumdum(df):
-    catcol = list(train.select_dtypes(exclude=np.number).columns)
-    dummy_df = pd.get_dummies(df[catcol], dummy_na=False, drop_first=[True, True])
+    cat_col = list(df.select_dtypes(exclude=np.number).columns)
+    dummy_df = pd.get_dummies(df[cat_col], dummy_na=False, drop_first=[True, True])
     df = pd.concat([df, dummy_df], axis=1)
     return df
 
-def prep_for_model(train, validate, test, target):
+def prep_for_model(train, validate, test, target, drivers):
     '''
     Takes in train, validate, and test data frames
     then splits  for X (all variables but target variable) 
     and y (only target variable) for each data frame
     '''
+    train = get_dumdum(train[drivers])
+    validate = get_dumdum(validate[drivers])
+    test = get_dumdum(test[drivers])
+    
     drop_columns = list(train.select_dtypes(exclude=np.number).columns) + [target]
 
     X_train = train.drop(columns=drop_columns)
