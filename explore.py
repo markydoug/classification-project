@@ -10,72 +10,58 @@ from scipy import stats
 ################################## EXPLORE DATA ###################################
 ###################################################################################
 
-def explore_uvar(df):
-    print('------------------------------------')
-    print('-----------NUMERICAL DATA-----------')
-    explore_num_uvar(df)
-    print('------------------------------------')
-    print('---------CATEGORICAL DATA-----------')
-    explore_cat_uvar(df)
+def split_churn(train):
+    #split data for exploration into a dataframe that shows all info on those who churned
+    train_churn = train[train.churn_encoded == 1]
 
+    #and a dataframe that show all info on those who didn't churn
+    train_no_churn = train[train.churn_encoded == 0]
 
-def explore_num_uvar(df):
-    '''
-    Takes in a data frame and returns univarite stats for numerical data
-    '''
-    num_vars = list(df.select_dtypes(include=np.number).columns)
-    for col in num_vars:
-        print(col)
-        print(df[col].describe())
-        df[col].hist()
-        plt.show()
-        sns.boxplot(y=col, data=df)
-        plt.show()
+    return train_churn, train_no_churn
 
-def explore_cat_uvar(df):
-    '''
-    Takes in a data frame and a list of categorical variables
-    Returns univarite stats
-    '''
-    cat_vars = list(df.select_dtypes(exclude=np.number).columns)
-    for col in cat_vars:
-        print(col)
-        print(df[col].value_counts())
-        print(df[col].value_counts(normalize=True)*100)
-        sns.countplot(x=col, data=df)
-        plt.show()
+def churn_percentage(train):
+    #split data for plotting
+    train_churn, train_no_churn = split_churn(train)
 
-def explore_bvar(df, target):
-    print('------------------------------------')
-    print('-----------NUMERICAL DATA-----------')
-    explore_num_bvar(df, target)
-    print('------------------------------------')
-    print('---------CATEGORICAL DATA-----------')
-    explore_cat_bvar(df, target)
+    values = [len(train_churn.churn_encoded), len(train_no_churn.churn_encoded)] 
+    labels = ["Churn", "Didn't Churn"] 
 
+    # generate and show chart
+    plt.pie(values, labels=labels, autopct='%.0f%%', colors=['#ffc3a0', '#c0d6e4'])
+    plt.title('Churned Customers Represent 27% of the train data')
+    plt.show()
 
-def explore_num_bvar(df, target):
-    '''
-    Takes in a data frame, target variable, and a 
-    list of numerical variables. Returns bivarite stats 
-    '''
-    num_vars = list(df.select_dtypes(include=np.number).columns)
-    for col in num_vars:
-        average = df[col].mean()
-        sns.boxenplot(data=df, x=target, y=col, color='lightseagreen')
-        plt.title(col)
-        plt.axhline(average, ls='--', color='black') 
-        plt.show()
+def tenure_viz(train):
+    #split data for plotting
+    train_churn, train_no_churn = split_churn(train)
+    
+    #plot boxenplot to compare tenure with churn
+    average = train["tenure"].mean()
+    sns.boxenplot(data=train, x='churn_encoded', y="tenure", palette='pastel', saturation=1)
+    plt.xlabel(xlabel="Did they churn? \n0 = No, 1 = Yes")
+    plt.ylabel(ylabel="Tenure (Months as a customer)")
+    plt.title("Does a customer's tenure affect churn? ")
+    plt.axhline(average, ls='--', color='black', label='Mean tenure') 
+    plt.legend(loc='upper center')
+    plt.show()
+    
+    #plot churn and no churn histogram on top of each other
+    train_no_churn['tenure'].hist(label = "Didn't churn", color='#c0d6e4')
+    train_churn['tenure'].hist(label = "Churned", color='#ffc3a0')
+    plt.ylabel(ylabel='Number of customers')
+    plt.xlabel(xlabel="Months as a customer (tenure)")
+    plt.legend(loc='upper center')
+    plt.show()
 
-def explore_cat_bvar(df, target):
-    '''
-    Takes in a data frame, target variable, and a 
-    list of categorical variables. Returns bivarite stats 
-    '''
-    cat_vars = list(df.select_dtypes(exclude=np.number).columns)
-    for col in cat_vars:
-        sns.barplot(x=col, y=target, data=df)
-        rate = df[target].mean()
-        plt.axhline(rate, label = f'Average {target} rate', linestyle='--', color='black')
-        plt.legend()
-        plt.show()
+def monthly_charges_viz(train):
+    #split data for plotting
+    train_churn, train_no_churn = split_churn(train)
+
+    #plot boxenplot to compare monthly charges with churn
+    average = train["monthly_charges"].mean()
+    sns.boxenplot(data=train, x='churn_encoded', y="monthly_charges", palette='pastel', saturation=1)
+    plt.title("Does a customer's monthly charges affect churn? ")
+    plt.axhline(average, ls='--', color='black', label= 'Mean Monthly charges') 
+    plt.xlabel(xlabel="Did they churn? \n0 = No, 1 = Yes")
+    plt.legend(loc='upper center')
+    plt.show()
