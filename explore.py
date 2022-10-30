@@ -11,6 +11,10 @@ from scipy import stats
 ###################################################################################
 
 def split_churn(train):
+    '''
+    Splits the teclo data into two data frames, one of those who churned
+    and one dataframe of those who didn't churn
+    '''
     #split data for exploration into a dataframe that shows all info on those who churned
     train_churn = train[train.churn_encoded == 1]
 
@@ -20,6 +24,10 @@ def split_churn(train):
     return train_churn, train_no_churn
 
 def churn_percentage(train):
+    '''
+    Takes in the train data set and returns a pie chart of the percentage
+    of customers who churned and who didn't churn.
+    '''
     #split data for plotting
     train_churn, train_no_churn = split_churn(train)
 
@@ -33,6 +41,11 @@ def churn_percentage(train):
     plt.show()
 
 def tenure_viz(train):
+    '''
+    Takes in the train data and returns a boxenplot and a histogram
+    comparing tenure and churn
+    '''
+    
     #split data for plotting histogram
     train_churn, train_no_churn = split_churn(train)
 
@@ -63,9 +76,25 @@ def tenure_viz(train):
     ax2.legend(loc='upper center', frameon=True)
     plt.show()
 
+def tenure_ttest(train):
+    '''
+    Takes in train data set and returns ttest results for tenure data
+    '''
+    #separate train into two groups (churn and no churn) for testing
+    train_churn, train_no_churn = split_churn(train)
+
+    #run an independent t-test
+    tstat, p = stats.ttest_ind(train_churn.tenure, train_no_churn.tenure, equal_var= False)
+    #print results
+    print(f"tstat: {tstat:.8}\np-value: {p:.4}")
 
 def monthly_charges_viz(train):
-   #split data for plotting
+    '''
+    Takes in the train data and returns a boxenplot 
+    comparing monthly charges and churn
+    '''
+    
+    #split data for plotting
     train_churn, train_no_churn = split_churn(train)
 
     #set font size
@@ -85,7 +114,22 @@ def monthly_charges_viz(train):
     plt.legend(loc='upper center', frameon=True)
     plt.show()
 
+def monthly_charges_ttest(train):
+    '''
+    Takes in train data set and returns ttest results for monthly charges
+    '''
+    #separate train into two groups (churn and no churn) for testing
+    train_churn, train_no_churn = split_churn(train)
+
+    #run an independent t-test
+    tstat, p = stats.ttest_ind(train_churn.monthly_charges, train_no_churn.monthly_charges, equal_var= False)
+    #print results
+    print(f"tstat: {tstat:.6}\np-value: {p:.6}")
+
 def contract_type_viz(train):
+    '''
+    Takes in the train data and returns a bar plot comparing contract type and churn
+    '''
     #set font size
     sns.set(font_scale=1.5)
     #set plot style
@@ -102,7 +146,22 @@ def contract_type_viz(train):
     plt.legend(frameon=True)
     plt.show()
 
+def contract_type_chi(train):
+    '''
+    Takes in train data set and returns chi-square results comparing
+    contract type and churn
+    '''
+    #create crosstab of the two variables (contract_type and churn)
+    observed = pd.crosstab(train["contract_type"], train["churn_encoded"])
+
+    #run χ^2 test
+    chi2, p, degf, expected = stats.chi2_contingency(observed)
+    print(f"χ^2: {chi2:.6}\np-value: {p:.6}")
+
 def tech_support_viz(train):
+    '''
+    Takes in the train data and returns a bar plot comparing tech support and churn
+    '''
     #set font size
     sns.set(font_scale=1.5)
     #set plot style
@@ -118,3 +177,15 @@ def tech_support_viz(train):
     plt.title("Does whether a customer has or doesn't have tech support affect churn? ")
     plt.legend()
     plt.show()
+
+def tech_support_chi(train):
+    '''
+    Takes in train data set and returns chi-square results comparing
+    tech support and churn
+    '''
+    #create crosstab of the two variables (contract_type and churn)
+    observed = pd.crosstab(train["tech_support"], train["churn_encoded"])
+
+    #run χ^2 test
+    chi2, p, degf, expected = stats.chi2_contingency(observed)
+    print(f"χ^2: {chi2:.6}\np-value: {p:.6}")
