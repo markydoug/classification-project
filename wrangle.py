@@ -91,6 +91,11 @@ def train_validate_test_split(df, target):
     return train, validate, test
 
 def get_dumdum(df):
+    '''
+    Takes in a dataframe and creates dummy variables for each 
+    categorical variable.
+    '''
+    
     cat_col = list(df.select_dtypes(exclude=np.number).columns)
     dummy_df = pd.get_dummies(df[cat_col], dummy_na=False, drop_first=[True, True])
     df = pd.concat([df, dummy_df], axis=1)
@@ -98,8 +103,9 @@ def get_dumdum(df):
 
 def prep_for_model(train, validate, test, target, drivers):
     '''
-    Takes in train, validate, and test data frames
-    then splits  for X (all variables but target variable) 
+    Takes in train, validate, and test data frames, the target variable, 
+    and a list of the drivers/features we want to model
+    It splits each dataframe into X (all variables but target variable) 
     and y (only target variable) for each data frame
     '''
     train = get_dumdum(train[drivers])
@@ -116,19 +122,5 @@ def prep_for_model(train, validate, test, target, drivers):
 
     X_test = test.drop(columns=drop_columns)
     y_test = test[target]
-
-    return X_train, y_train, X_validate, y_validate, X_test, y_test
-
-def prep_df_for_model(df, target):
-    '''
-    Takes in a data frame and the target variable column, splits the data
-    into train (80%), validate (15%), and test (10%) data frames
-    then splits again for X (all variables but target variable) and 
-    y (only target variable) for each data frame
-    '''
-    
-    train, validate, test = train_validate_test_split(df, target)
-
-    X_train, y_train, X_validate, y_validate, X_test, y_test = prep_for_model(train, validate, test, target)
 
     return X_train, y_train, X_validate, y_validate, X_test, y_test
