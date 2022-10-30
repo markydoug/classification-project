@@ -101,26 +101,3 @@ def get_dumdum(df):
     df = pd.concat([df, dummy_df], axis=1)
     return df
 
-def prep_for_model(train, validate, test, target, drivers):
-    '''
-    Takes in train, validate, and test data frames, the target variable, 
-    and a list of the drivers/features we want to model
-    It splits each dataframe into X (all variables but target variable) 
-    and y (only target variable) for each data frame
-    '''
-    train = get_dumdum(train[drivers])
-    validate = get_dumdum(validate[drivers])
-    test = get_dumdum(test[drivers])
-    
-    drop_columns = list(train.select_dtypes(exclude=np.number).columns) + [target]
-
-    X_train = train.drop(columns=drop_columns)
-    y_train = train[target]
-
-    X_validate = validate.drop(columns=drop_columns)
-    y_validate = validate[target]
-
-    X_test = test.drop(columns=drop_columns)
-    y_test = test[target]
-
-    return X_train, y_train, X_validate, y_validate, X_test, y_test
