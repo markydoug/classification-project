@@ -45,7 +45,6 @@ def tenure_viz(train):
     Takes in the train data and returns a boxenplot and a histogram
     comparing tenure and churn
     '''
-    
     #split data for plotting histogram
     train_churn, train_no_churn = split_churn(train)
 
@@ -111,6 +110,7 @@ def monthly_charges_viz(train):
     plt.title("Does a customer's monthly charges affect churn? ")
     plt.axhline(average, ls='--', color='black', label= 'Average Monthly charges') 
     plt.xlabel(xlabel="Did they churn? \n0 = No, 1 = Yes")
+    plt.ylabel(ylabel="Monthly Charges")
     plt.legend(loc='upper center', frameon=True)
     plt.show()
 
@@ -143,6 +143,8 @@ def contract_type_viz(train):
     rate = train["churn_encoded"].mean()
     plt.axhline(rate, label = f'Average churn rate', linestyle='--', color='black')
     plt.title("Does a customer's contract type affect churn? ")
+    plt.xlabel(xlabel="Contract Type")
+    plt.ylabel(ylabel="Churn Rate")
     plt.legend(frameon=True)
     plt.show()
 
@@ -175,7 +177,9 @@ def tech_support_viz(train):
     rate = train["churn_encoded"].mean()
     plt.axhline(rate, label = f'Average churn rate', linestyle='--', color='black')
     plt.title("Does whether a customer has or doesn't have tech support affect churn? ")
-    plt.legend()
+    plt.xlabel(xlabel="Tech Support")
+    plt.ylabel(ylabel="Churn Rate")
+    plt.legend(frameon=True)
     plt.show()
 
 def tech_support_chi(train):

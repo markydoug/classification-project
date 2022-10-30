@@ -90,14 +90,3 @@ def train_validate_test_split(df, target):
     
     return train, validate, test
 
-def get_dumdum(df):
-    '''
-    Takes in a dataframe and creates dummy variables for each 
-    categorical variable.
-    '''
-    
-    cat_col = list(df.select_dtypes(exclude=np.number).columns)
-    dummy_df = pd.get_dummies(df[cat_col], dummy_na=False, drop_first=[True, True])
-    df = pd.concat([df, dummy_df], axis=1)
-    return df
-

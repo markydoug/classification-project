@@ -10,6 +10,17 @@ import numpy as np
 ############################ PREP DATA FOR MODELING ###############################
 ###################################################################################
 
+def get_dumdum(df):
+    '''
+    Takes in a dataframe and creates dummy variables for each 
+    categorical variable.
+    '''
+    
+    cat_col = list(df.select_dtypes(exclude=np.number).columns)
+    dummy_df = pd.get_dummies(df[cat_col], dummy_na=False, drop_first=[True, True])
+    df = pd.concat([df, dummy_df], axis=1)
+    return df
+
 def prep_for_model(train, validate, test, target, drivers):
     '''
     Takes in train, validate, and test data frames, the target variable, 
@@ -39,16 +50,6 @@ def prep_for_model(train, validate, test, target, drivers):
 ################### MODEL EVALUATION ON TRAIN AND VALIDATE DATA ###################
 ###################################################################################
 
-def get_dumdum(df):
-    '''
-    Takes in a dataframe and creates dummy variables for each 
-    categorical variable.
-    '''
-    
-    cat_col = list(df.select_dtypes(exclude=np.number).columns)
-    dummy_df = pd.get_dummies(df[cat_col], dummy_na=False, drop_first=[True, True])
-    df = pd.concat([df, dummy_df], axis=1)
-    return df
 
 def decision_tree_results(X_train, y_train, X_validate, y_validate):
     '''
