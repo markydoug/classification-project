@@ -42,8 +42,8 @@ My initial hypothesis is that drivers of churn will be predictors of if a custom
 |:--------|:-----------|:-------
 |gender| The customer's gender| Male or Female|
 |senior_citizen| Is this customer a senior citizen?| {'Yes': 1, 'No': 0} |
-|partner| Does this person live with a partner?|'Yes' or 'No'|
-|dependents| Does this person live with dependents?| 'Yes' or 'No'|
+|partner| Does this person live with a partner?|'Yes', 'No'|
+|dependents| Does this person live with dependents?| 'Yes', 'No'|
 |tenure| The number of **months** a customer has been with the company| *float* |
 |phone_service| Does this person subscribe to phone service?| 'Yes', 'No'|
 |multiple_lines| Does this person have multiple phone lines?| 'Yes', 'No', 'No phone service'|
